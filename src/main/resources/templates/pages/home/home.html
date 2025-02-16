@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    * {
+        text-align: center;
+    }
+
+    a {
+        display: block;
+    }
+</style>
+<body>
+<div layout:fragment="content">
+    <table border="1" style="border-collapse: collapse" class="table table-hover">
+        <tr class="thead-dark">
+            <th>#</th>
+            <th>Tên SP</th>
+            <th>Màu sắc</th>
+            <th>NSX</th>
+            <th>Dòng SP</th>
+            <th>Năm BH</th>
+            <th>Mô tả</th>
+            <th>Số lượng tồn</th>
+            <th>Giá bán</th>
+            <th sec:authorize="hasRole('CUSTOMER')">Hành động</th>
+        </tr>
+
+        <tr th:each="ct, i : ${spct}">
+            <td th:text="${i.count}"></td>
+            <td th:text="${ct.sanPham.ten}"></td>
+            <td th:text="${ct.mauSac.ten}"></td>
+            <td th:text="${ct.nsx.ten}"></td>
+            <td th:text="${ct.dongSP.ten}"></td>
+            <td th:text="${ct.namBH}"></td>
+            <td th:text="${ct.moTa}"></td>
+            <td th:text="${ct.soLuongTon}"></td>
+            <td th:text="${ct.giaBan}"></td>
+            <td sec:authorize="hasRole('CUSTOMER')">
+                <button type="button" class="btn btn-info w-100"
+                        onclick="showNotification('Thông báo!', 'Nội dung thông báo!', 'info', '/ok')">
+                    <i class="fa-solid fa-cart-plus"></i>
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

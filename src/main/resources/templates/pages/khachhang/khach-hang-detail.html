@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        i {
+            color: #FFF;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div th:object="${ctsp}" class="card w-100 h-100 p-5">
+        <div class="mb-3">
+            <label class="form-label">Sản phẩm: </label>
+            <span th:text="|*{sanPham.ma} - *{sanPham.ten}|"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Nhà sản xuất: </label>
+            <span th:text="|*{nsx.ma} - *{nsx.ten}|"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Dòng sản phẩm: </label>
+            <span th:text="|*{dongSP.ma} - *{dongSP.ten}|"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Màu sắc: </label>
+            <span th:text="|*{mauSac.ma} - *{mauSac.ten}|"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Năm BH: </label>
+            <span th:text="*{namBH}"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Mô tả: </label>
+            <span th:text="*{moTa}"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Số lượng tồn: </label>
+            <span th:text="*{soLuongTon}"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Giá nhập: </label>
+            <span th:text="*{giaNhap}"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Giá bán: </label>
+            <span th:text="*{giaBan}"></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

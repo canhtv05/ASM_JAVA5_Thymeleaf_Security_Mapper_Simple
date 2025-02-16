@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        i {
+            color: #FFF;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="card p-2">
+        <form class="needs-validation" method="post" action="/admin/san-pham/add" th:object="${sanPham}"
+              onsubmit="return showNotification('Thông báo!', 'Bạn có muốn thêm không?', 'info', null, event)">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <div class="mb-3">
+                <label for="maDongSP" class="form-label">Mã SP</label>
+                <input type="text" class="form-control" name="ma" id="maDongSP" th:field="*{ma}">
+                <span class="my-error" th:errors="*{ma}"></span>
+                <span th:text="${duplicate}" class="my-error"></span>
+            </div>
+            <div class="mb-3">
+                <label for="tenDongSP" class="form-label">Tên SP</label>
+                <input type="text" class="form-control" id="tenDongSP" name="ten" th:field="*{ten}">
+                <span class="my-error" th:errors="*{ten}"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Thêm</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

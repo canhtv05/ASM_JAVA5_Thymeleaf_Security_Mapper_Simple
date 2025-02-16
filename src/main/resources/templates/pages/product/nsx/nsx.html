@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        i {
+            color: #FFF;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <table border="1" style="border-collapse: collapse" class="table table-hover">
+        <tr class="thead-dark">
+            <th>#</th>
+            <th>Mã NSX</th>
+            <th>Tên NSX</th>
+            <th>Hành động</th>
+        </tr>
+
+        <tr th:each="sp, i : ${nsx}">
+            <td th:text="${i.count}"></td>
+            <td th:text="${sp.ma}"></td>
+            <td th:text="${sp.ten}"></td>
+            <td>
+                <div class="d-flex justify-content-around">
+                    <a type="button" class="btn btn-info w-100 m-2" th:href="@{/admin/nsx/detail/{id}(id=${sp.id})}">
+                        <i class="fa-solid fa-eye"></i>
+                    </a>
+                    <a type="button" class="btn btn-primary w-100 m-2"  th:href="@{/admin/nsx/view-update/{id}(id=${sp.id})}">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
+                    <a type="button" class="btn btn-warning w-100 m-2"
+                       th:attr="onclick=|showNotification('Thông báo!', 'Bạn có chắc chắn muốn xóa?', 'warning', '/admin/nsx/delete/' + ${sp.id})|">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <a type="button" class="btn btn-success w-100 mb-3" href="/admin/nsx/view-add">
+        <i class="fa-solid fa-plus"></i>
+    </a>
+</div>
+</body>
+</html>

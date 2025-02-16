@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Website</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+          integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <style>
+        .my-error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <header class="mb-5">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="navbar-brand">CanhTV05</div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <span sec:authorize="isAuthenticated()" class="m-2 text-light">
+                    Xin chào người đẳng cấp:
+                    <span th:text="${ten}"></span>
+                </span>
+                <a href="/login-form" type="button" class="btn btn-primary" sec:authorize="!isAuthenticated()">Login</a>
+                <button type="button" class="btn btn-secondary"
+                        sec:authorize="isAuthenticated()"
+                        onclick="showNotification('', 'Bạn có muốn đăng xuất không?', 'info', '/logout', event)">
+                    Logout
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="d-flex container-fluid">
+        <aside sec:authorize="hasRole('ADMIN')">
+            <div class="card bg-dark" style="width: 18rem;">
+                <div class="card-header text-light">
+                    Menu
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a href="/admin/dong-sp">Dòng sản phẩm</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="/admin/mau-sac">Màu sắc</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="/admin/san-pham">Sản phẩm</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="/admin/nsx">Nhà sản xuất</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="/admin/chi-tiet-sp">Chi tiết sản phẩm</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="/admin/khach-hang">Khách hàng</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <main layout:fragment="content" class="container-fluid">
+            <!-- Nội dung trang con -->
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 - Website của tôi</p>
+    </footer>
+</div>
+<th:block layout:fragment="scripts"></th:block>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.16.0/dist/sweetalert2.all.min.js"></script>
+<script src="/js/showNotification.js"></script>
+<script src="/js/changeText.js"></script>
+</body>
+</html>

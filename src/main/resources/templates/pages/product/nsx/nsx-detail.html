@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        i {
+            color: #FFF;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div th:object="${nsx}" class="card w-100 h-100 p-5">
+        <div class="mb-3">
+            <label class="form-label">Mã NSX: </label>
+            <span th:text="*{ma}"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Tên NSX: </label>
+            <span th:text="*{ten}"></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
