@@ -3,6 +3,7 @@ package com.canhtv05.asm_java5.service;
 import com.canhtv05.asm_java5.constant.PredefinedRole;
 import com.canhtv05.asm_java5.dto.request.NhanVienCreationRequest;
 import com.canhtv05.asm_java5.entity.ChucVu;
+import com.canhtv05.asm_java5.entity.KhachHang;
 import com.canhtv05.asm_java5.entity.NhanVien;
 import com.canhtv05.asm_java5.mapper.NhanVienMapper;
 import com.canhtv05.asm_java5.repository.ChucVuRepository;
@@ -23,7 +24,7 @@ public class NhanVienService {
     PasswordEncoder passwordEncoder;
     ChucVuRepository chucVuRepository;
 
-    public void createNhanVien(NhanVienCreationRequest request) {
+    public void add(NhanVienCreationRequest request) {
         NhanVien nhanVien = nhanVienMapper.toNhanVien(request);
 
         String lastMa = nhanVienRepository.findTopByOrderByIdDesc()
@@ -39,5 +40,9 @@ public class NhanVienService {
         nhanVien.setChucVu(chucVu);
 
         nhanVienRepository.save(nhanVien);
+    }
+
+    public NhanVien findByTaiKhoan(String taiKhoan) {
+        return nhanVienRepository.findByTaiKhoan(taiKhoan).orElse(null);
     }
 }

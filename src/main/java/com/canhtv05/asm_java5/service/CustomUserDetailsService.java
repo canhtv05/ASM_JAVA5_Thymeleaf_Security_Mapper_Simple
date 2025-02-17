@@ -1,9 +1,8 @@
 package com.canhtv05.asm_java5.service;
 
-import com.canhtv05.asm_java5.constant.PredefinedRole;
 import com.canhtv05.asm_java5.entity.CustomUserDetails;
+import com.canhtv05.asm_java5.entity.KhachHang;
 import com.canhtv05.asm_java5.entity.NhanVien;
-import com.canhtv05.asm_java5.repository.NhanVienRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -20,18 +19,29 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class CustomUserDetailsService implements UserDetailsService {
 
-    NhanVienRepository nhanVienRepository;
+    NhanVienService nhanVienService;
+    KhachHangService khachHangService;
 
     @Override
-    public UserDetails loadUserByUsername(String maNV) throws UsernameNotFoundException {
-        NhanVien nhanVien = nhanVienRepository.findByMa(maNV)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    public UserDetails loadUserByUsername(String ma) throws UsernameNotFoundException {
+        NhanVien nhanVien = nhanVienService.findByTaiKhoan(ma);
+        if (nhanVien != null) {
+            return customUserDetails(nhanVien.getTaiKhoan(), nhanVien.getMatKhau(), nhanVien.getChucVu().getMa(),
+                    nhanVien.getTen());
+        }
 
-        return new CustomUserDetails(
-                nhanVien.getTaiKhoan(),
-                nhanVien.getMatKhau(),
-                List.of(new SimpleGrantedAuthority("ROLE_" + PredefinedRole.ADMIN_ROLE)),
-                nhanVien.getTen()
-        );
+        KhachHang khachHang = khachHangService.findByTaiKhoan(ma);
+        if (khachHang != null) {
+            return customUserDetails(khachHang.getTaiKhoan(), khachHang.getMatKhau(), khachHang.getChucVu().getMa(),
+                    khachHang.getTen());
+        }
+
+        throw new UsernameNotFoundException("User not found with ID: " + ma);
+    }
+
+    private CustomUserDetails customUserDetails(String taiKhoan, String matKhau,
+                                                String maCV, String ten) {
+        return new CustomUserDetails(taiKhoan, matKhau,
+                List.of(new SimpleGrantedAuthority("ROLE_" + maCV)), ten);
     }
 }

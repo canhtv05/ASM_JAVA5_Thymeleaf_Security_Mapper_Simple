@@ -66,8 +66,14 @@ public class KhachHangController {
             return "/pages/khachhang/khach-hang-add";
         }
 
-        khachHangService.add(request);
-        return "redirect:/admin/khach-hang";
+        try {
+            khachHangService.add(request);
+            return "redirect:/admin/khach-hang";
+        } catch (DuplicateKeyException e) {
+            model.addAttribute("duplicateTK", e.getMessage());
+            model.addAttribute("khachHang", request);
+            return "/pages/khachhang/khach-hang-add";
+        }
     }
 
     @GetMapping("/detail/{id}")

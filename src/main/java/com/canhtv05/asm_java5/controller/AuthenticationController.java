@@ -1,10 +1,11 @@
 package com.canhtv05.asm_java5.controller;
 
-import com.canhtv05.asm_java5.constant.PredefinedRole;
 import com.canhtv05.asm_java5.dto.request.AuthenticationRequest;
 import com.canhtv05.asm_java5.entity.CustomUserDetails;
+import com.canhtv05.asm_java5.entity.KhachHang;
 import com.canhtv05.asm_java5.entity.NhanVien;
-import com.canhtv05.asm_java5.repository.NhanVienRepository;
+import com.canhtv05.asm_java5.service.KhachHangService;
+import com.canhtv05.asm_java5.service.NhanVienService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
@@ -14,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,7 +32,9 @@ import java.util.List;
 @Slf4j
 public class AuthenticationController {
 
-    NhanVienRepository nhanVienRepository;
+    NhanVienService nhanVienService;
+    KhachHangService khachHangService;
+    PasswordEncoder passwordEncoder;
 
     @GetMapping("/login-form")
     public String loginForm(@ModelAttribute(name = "req") AuthenticationRequest request, Model model) {
@@ -48,30 +52,40 @@ public class AuthenticationController {
             return "/pages/login/login";
         }
 
-        NhanVien nhanVien = nhanVienRepository.findByTaiKhoan((request.getTaiKhoan()))
-                .orElse(null);
-
-        if (nhanVien == null || !new BCryptPasswordEncoder().matches(request.getMatKhau(), nhanVien.getMatKhau())) {
-            model.addAttribute("errUS", "Incorrect username");
-            model.addAttribute("errPW", "Incorrect password");
-            return "/pages/login/login";
+        NhanVien nhanVien = nhanVienService.findByTaiKhoan(request.getTaiKhoan());
+        if (!Objects.isNull(nhanVien) && passwordEncoder.matches(request.getMatKhau(), nhanVien.getMatKhau())) {
+            CustomUserDetails userDetails = new CustomUserDetails(
+                    request.getTaiKhoan(),
+                    request.getMatKhau(),
+                    List.of(new SimpleGrantedAuthority("ROLE_" + nhanVien.getChucVu().getMa())),
+                    nhanVien.getTen()
+            );
+            authenticateUser(userDetails, httpSession);
+            return "redirect:/";
         }
 
-        CustomUserDetails userDetails = new CustomUserDetails(
-                request.getTaiKhoan(),
-                request.getMatKhau(),
-                List.of(new SimpleGrantedAuthority("ROLE_" + PredefinedRole.ADMIN_ROLE)),
-                nhanVien.getTen()
-        );
+        KhachHang khachHang = khachHangService.findByTaiKhoan(request.getTaiKhoan());
+        if (!Objects.isNull(khachHang) && passwordEncoder.matches(request.getMatKhau(), khachHang.getMatKhau())) {
+            CustomUserDetails userDetails = new CustomUserDetails(
+                    request.getTaiKhoan(),
+                    request.getMatKhau(),
+                    List.of(new SimpleGrantedAuthority("ROLE_" + khachHang.getChucVu().getMa())),
+                    khachHang.getTen()
+            );
+            authenticateUser(userDetails, httpSession);
+            return "redirect:/";
+        }
 
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+        model.addAttribute("errUS", "Incorrect username");
+        model.addAttribute("errPW", "Incorrect password");
+        return "/pages/login/login";
+    }
+
+    private void authenticateUser(CustomUserDetails userDetails, HttpSession httpSession) {
+        UsernamePasswordAuthenticationToken authToken =
                 new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-
-        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+        SecurityContextHolder.getContext().setAuthentication(authToken);
         httpSession.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
-
         log.info("User '{}' has roles: {}", userDetails.getUsername(), userDetails.getAuthorities());
-
-        return "redirect:/";
     }
 }

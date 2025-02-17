@@ -35,6 +35,10 @@ public class KhachHangService {
                 .toList();
     }
 
+    public KhachHang findByTaiKhoan(String taiKhoan) {
+        return khachHangRepository.findByTaiKhoan(taiKhoan).orElse(null);
+    }
+
     public KhachHangResponse findById(Integer id) {
         return khachHangMapper.toKhachHangSResponse(khachHangRepository.findById(id).orElse(null));
     }
@@ -46,8 +50,12 @@ public class KhachHangService {
     public void add(KhachHangCreationRequest request) {
         KhachHang khachHang = khachHangMapper.toKhachHang(request);
 
+        if (khachHangRepository.existsByTaiKhoan(khachHang.getTaiKhoan())) {
+            throw new DuplicateKeyException("TaiKhoan is already in use");
+        }
+
         ChucVu chucVu = chucVuMapper.toChucVu(chucVuService.findByMa(PredefinedRole.CUSTOMER_ROLE));
-        request.setChucVu(chucVu);
+        khachHang.setChucVu(chucVu);
 
         String lastMa = khachHangRepository.findTopByOrderByIdDesc()
                 .map(nv -> "KH" + (Integer.parseInt(nv.getMa().substring(2)) + 1))

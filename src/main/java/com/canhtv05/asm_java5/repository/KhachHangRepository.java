@@ -10,4 +10,10 @@ public interface KhachHangRepository extends JpaRepository<KhachHang, Integer> {
     boolean existsByMa(@Size(max = 20) String ma);
 
     Optional<KhachHang> findTopByOrderByIdDesc();
+
+    Optional<KhachHang> findByTaiKhoan(String taiKhoan);
+
+    Optional<KhachHang> findByMa(@Size(max = 20) String ma);
+
+    boolean existsByTaiKhoan(String taiKhoan);
 }
