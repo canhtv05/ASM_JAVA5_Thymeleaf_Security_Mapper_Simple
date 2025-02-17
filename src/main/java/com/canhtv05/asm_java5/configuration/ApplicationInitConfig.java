@@ -49,6 +49,11 @@ public class ApplicationInitConfig {
                         .ten(PredefinedRole.ADMIN_ROLE + " ROLE")
                         .build());
 
+                chucVuRepository.save(ChucVu.builder()
+                                .ma(PredefinedRole.CUSTOMER_ROLE)
+                                .ten(PredefinedRole.CUSTOMER_ROLE + " ROLE")
+                        .build());
+
                 NhanVien nhanVien = NhanVien.builder()
                         .taiKhoan(PredefinedRole.ADMIN_ROLE)
                         .chucVu(chucVu)

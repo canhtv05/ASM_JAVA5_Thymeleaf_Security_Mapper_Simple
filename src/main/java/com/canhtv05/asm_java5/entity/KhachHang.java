@@ -74,4 +74,13 @@ public class KhachHang {
     @Column(name = "MatKhau")
     private String matKhau;
 
+    @ColumnDefault("NULL")
+    @Lob
+    @Column(name = "TaiKhoan")
+    private String taiKhoan;
+
+    @ManyToOne
+    @JoinColumn(name = "IdCV", referencedColumnName = "id")
+    private ChucVu chucVu;
+
 }

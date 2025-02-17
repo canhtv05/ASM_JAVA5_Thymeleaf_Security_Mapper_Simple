@@ -1,15 +1,19 @@
 package com.canhtv05.asm_java5.service;
 
+import com.canhtv05.asm_java5.constant.PredefinedRole;
 import com.canhtv05.asm_java5.dto.request.KhachHangCreationRequest;
 import com.canhtv05.asm_java5.dto.request.KhachHangUpdateRequest;
 import com.canhtv05.asm_java5.dto.response.KhachHangResponse;
+import com.canhtv05.asm_java5.entity.ChucVu;
 import com.canhtv05.asm_java5.entity.KhachHang;
+import com.canhtv05.asm_java5.mapper.ChucVuMapper;
 import com.canhtv05.asm_java5.mapper.KhachHangMapper;
 import com.canhtv05.asm_java5.repository.KhachHangRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +25,9 @@ public class KhachHangService {
 
     KhachHangRepository khachHangRepository;
     KhachHangMapper khachHangMapper;
+    ChucVuMapper chucVuMapper;
+    ChucVuService chucVuService;
+    PasswordEncoder passwordEncoder;
 
     public List<KhachHangResponse> findAll() {
         return khachHangRepository.findAll().stream()
@@ -39,15 +46,22 @@ public class KhachHangService {
     public void add(KhachHangCreationRequest request) {
         KhachHang khachHang = khachHangMapper.toKhachHang(request);
 
-        if (khachHangRepository.existsByMa(request.getMa())) {
-            throw new DuplicateKeyException("Duplicate ma: " + request.getMa());
-        }
+        ChucVu chucVu = chucVuMapper.toChucVu(chucVuService.findByMa(PredefinedRole.CUSTOMER_ROLE));
+        request.setChucVu(chucVu);
+
+        String lastMa = khachHangRepository.findTopByOrderByIdDesc()
+                .map(nv -> "KH" + (Integer.parseInt(nv.getMa().substring(2)) + 1))
+                .orElse("KH1");
+
+        khachHang.setMa(lastMa);
+        khachHang.setMatKhau(passwordEncoder.encode(request.getMatKhau()));
 
         khachHangRepository.save(khachHang);
     }
 
     public void update(KhachHangUpdateRequest request)  {
         KhachHang khachHang = khachHangMapper.toKhachHangUpdate(request);
+        khachHang.setMatKhau(passwordEncoder.encode(request.getMatKhau()));
 
         khachHangRepository.save(khachHang);
     }

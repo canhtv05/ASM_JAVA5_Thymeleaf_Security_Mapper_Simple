@@ -13,42 +13,42 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <div th:object="${ctsp}" class="card w-100 h-100 p-5">
+    <div th:object="${khachHang}" class="card w-100 h-100 p-5">
         <div class="mb-3">
-            <label class="form-label">Sản phẩm: </label>
-            <span th:text="|*{sanPham.ma} - *{sanPham.ten}|"></span>
+            <label class="form-label">Mã KH: </label>
+            <span th:text="*{ma}"></span>
         </div>
         <div class="mb-3">
-            <label class="form-label">Nhà sản xuất: </label>
-            <span th:text="|*{nsx.ma} - *{nsx.ten}|"></span>
+            <label class="form-label">Họ và tên: </label>
+            <span th:text="|*{ho} *{tenDem} *{ten}|"></span>
         </div>
         <div class="mb-3">
-            <label class="form-label">Dòng sản phẩm: </label>
-            <span th:text="|*{dongSP.ma} - *{dongSP.ten}|"></span>
+            <label class="form-label">Ngày sinh: </label>
+            <span th:text="*{ngaySinh}"></span>
         </div>
         <div class="mb-3">
-            <label class="form-label">Màu sắc: </label>
-            <span th:text="|*{mauSac.ma} - *{mauSac.ten}|"></span>
+            <label class="form-label">Số điện thoại: </label>
+            <span th:text="*{sdt}"></span>
         </div>
         <div class="mb-3">
-            <label class="form-label">Năm BH: </label>
-            <span th:text="*{namBH}"></span>
+            <label class="form-label">Địa chỉ: </label>
+            <span th:text="*{diaChi}"></span>
         </div>
         <div class="mb-3">
-            <label class="form-label">Mô tả: </label>
-            <span th:text="*{moTa}"></span>
+            <label class="form-label">Thành phố: </label>
+            <span th:text="*{thanhPho}"></span>
         </div>
         <div class="mb-3">
-            <label class="form-label">Số lượng tồn: </label>
-            <span th:text="*{soLuongTon}"></span>
+            <label class="form-label">Quốc gia: </label>
+            <span th:text="*{quocGia}"></span>
         </div>
         <div class="mb-3">
-            <label class="form-label">Giá nhập: </label>
-            <span th:text="*{giaNhap}"></span>
+            <label class="form-label">Tài khoản: </label>
+            <span th:text="*{taiKhoan}"></span>
         </div>
         <div class="mb-3">
-            <label class="form-label">Giá bán: </label>
-            <span th:text="*{giaBan}"></span>
+            <label class="form-label">Mật khẩu: </label>
+            <span th:text="*{matKhau}"></span>
         </div>
     </div>
 </div>

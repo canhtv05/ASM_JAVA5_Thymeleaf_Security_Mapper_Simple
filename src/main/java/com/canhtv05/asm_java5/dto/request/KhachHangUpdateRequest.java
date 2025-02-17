@@ -1,8 +1,7 @@
 package com.canhtv05.asm_java5.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import com.canhtv05.asm_java5.entity.ChucVu;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,8 +18,6 @@ public class KhachHangUpdateRequest {
 
     @NotNull
     Integer id;
-    @Size(max = 20)
-    @NotBlank
     String ma;
     @Size(max = 30)
     @NotBlank
@@ -30,9 +27,11 @@ public class KhachHangUpdateRequest {
     @Size(max = 30)
     String ho;
     @NotNull
+    @Past(message = "Ngày sinh không hợp lệ")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate ngaySinh;
     @Size(max = 30)
+    @Pattern(regexp = "^\\d{10,11}$", message = "Số điện thoại phải có 10-11 chữ số")
     @NotBlank
     String sdt;
     @Size(max = 100)
@@ -44,4 +43,7 @@ public class KhachHangUpdateRequest {
     String quocGia;
     @NotBlank
     String matKhau;
+    @NotBlank
+    String taiKhoan;
+    ChucVu chucVu;
 }
