@@ -27,10 +27,6 @@ public class MauSacController {
 
     @GetMapping
     public String viewAll(@ModelAttribute MauSac mauSac, Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getPrincipal() instanceof CustomUserDetails userDetails) {
-            model.addAttribute("ten", userDetails.getTen());
-        }
         model.addAttribute("mauSac", mauSacService.findAll());
         return "/pages/product/mausac/mau-sac";
     }

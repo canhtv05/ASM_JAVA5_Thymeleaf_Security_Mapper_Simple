@@ -25,31 +25,44 @@
 <body>
 <div>
     <header class="mb-5">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="navbar-brand">CanhTV05</div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <span sec:authorize="isAuthenticated()" class="m-2 text-light">
-                    Xin chào người đẳng cấp:
-                    <span th:text="${ten}"></span>
-                </span>
-                <a href="/login-form" type="button" class="btn btn-primary" sec:authorize="!isAuthenticated()">Login</a>
-                <button type="button" class="btn btn-secondary"
-                        sec:authorize="isAuthenticated()"
-                        onclick="showNotification('', 'Bạn có muốn đăng xuất không?', 'info', '/logout', event)">
-                    Logout
-                    <i class="fa-solid fa-right-from-bracket"></i>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 70px">
+            <div class="container-fluid">
+                <div class="navbar-brand">CanhTV05</div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="d-flex justify-content-end align-items-center">
+                    <div sec:authorize="isAuthenticated()" class="m-2 text-light">
+                        <div class="dropdown">
+                            <div class="btn mr-5 btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink"
+                                 data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="/view/my-info">Thông tin của tôi</a></li>
+                                <li><a class="dropdown-item" href="/view/change-password">Đổi mật khẩu</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="/login-form" type="button" class="btn btn-primary" sec:authorize="!isAuthenticated()">Login</a>
+                        <button type="button" class="btn btn-secondary"
+                                sec:authorize="isAuthenticated()"
+                                onclick="showNotification('', 'Bạn có muốn đăng xuất không?', 'info', '/logout', event)">
+                            Logout
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </nav>
     </header>
@@ -85,13 +98,13 @@
                 </ul>
             </div>
         </aside>
-        <main layout:fragment="content" class="container-fluid">
+        <main layout:fragment="content" class="container-fluid" style="min-height: 652px">
             <!-- Nội dung trang con -->
         </main>
     </div>
 
-    <footer>
-        <p>&copy; 2025 - Website của tôi</p>
+    <footer class="bg-dark text-light text-center p-2">
+        <div>&copy; 2025 - CanhTV05</div>
     </footer>
 </div>
 <th:block layout:fragment="scripts"></th:block>
@@ -100,6 +113,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.16.0/dist/sweetalert2.all.min.js"></script>
 <script src="/js/showNotification.js"></script>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Thông tin cá nhân</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="card p-5">
+        <div class="mb-3">
+            <label class="form-label">Họ và tên: </label>
+            <span th:if="${nv != null}" th:text="|${nv.ho} ${nv.tenDem} ${nv.ten}|"></span>
+            <span th:if="${kh != null}" th:text="|${kh.ho} ${kh.tenDem} ${kh.ten}|"></span>
+        </div>
+        <div class="mb-3" th:if="${nv != null}">
+            <label class="form-label">Giới tính: </label>
+            <span th:text="${nv.gioiTinh == 1 ? 'Nam' : 'Nữ'}"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Ngày sinh: </label>
+            <span th:if="${nv != null}" th:text="${nv.ngaySinh}"></span>
+            <span th:if="${kh != null}" th:text="${kh.ngaySinh}"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Số điện thoại: </label>
+            <span th:if="${nv != null}" th:text="${nv.sdt}"></span>
+            <span th:if="${kh != null}" th:text="${kh.sdt}"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Địa chỉ: </label>
+            <span th:if="${nv != null}" th:text="${nv.diaChi}"></span>
+            <span th:if="${kh != null}" th:text="${kh.diaChi}"></span>
+        </div>
+        <div class="mb-3" th:if="${kh != null}">
+            <label class="form-label">Thành phố: </label>
+            <span th:text="${kh.thanhPho}"></span>
+        </div>
+        <div class="mb-3" th:if="${kh != null}">
+            <label class="form-label">Quốc gia: </label>
+            <span th:text="${kh.quocGia}"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Tài khoản: </label>
+            <span th:if="${nv != null}" th:text="${nv.taiKhoan}"></span>
+            <span th:if="${kh != null}" th:text="${kh.taiKhoan}"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Mật khẩu: </label>
+            <span th:if="${nv != null}" th:text="${nv.matKhau}"></span>
+            <span th:if="${kh != null}" th:text="${kh.matKhau}"></span>
+        </div>
+        <div class="mb-3" th:if="${nv != null}">
+            <label class="form-label">Trạng thái: </label>
+            <span th:text="${nv.trangThai == 1 ? 'Hoạt động' : 'Ngừng hoạt động'}"></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

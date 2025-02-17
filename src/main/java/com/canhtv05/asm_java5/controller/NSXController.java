@@ -31,10 +31,6 @@ public class NSXController {
 
     @GetMapping
     public String viewAll(@ModelAttribute Nsx nsx, Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getPrincipal() instanceof CustomUserDetails userDetails) {
-            model.addAttribute("ten", userDetails.getTen());
-        }
         model.addAttribute("nsx", nsxService.findAll());
         return "/pages/product/nsx/nsx";
     }

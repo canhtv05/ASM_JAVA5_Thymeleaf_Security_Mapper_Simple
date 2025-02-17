@@ -32,10 +32,6 @@ public class ChiTietSPController {
 
     @GetMapping
     public String viewAll(@ModelAttribute ChiTietSP chiTietSP, Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getPrincipal() instanceof CustomUserDetails userDetails) {
-            model.addAttribute("ten", userDetails.getTen());
-        }
         model.addAttribute("ctsp", chiTietSPService.findAll());
         return "/pages/product/chitietsp/chi-tiet-sp";
     }

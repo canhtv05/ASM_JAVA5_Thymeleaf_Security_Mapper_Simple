@@ -27,10 +27,6 @@ public class DongSPController {
 
     @GetMapping
     public String viewAll(@ModelAttribute DongSP dongSP, Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getPrincipal() instanceof CustomUserDetails userDetails) {
-            model.addAttribute("ten", userDetails.getTen());
-        }
         model.addAttribute("dsp", dongSPService.findAll());
         return "/pages/product/dongsp/dong-sp";
     }

@@ -22,10 +22,6 @@ public class HomeController {
     @GetMapping
 //    @PreAuthorize("hasRole('ADMIN')")
     public String home(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getPrincipal() instanceof CustomUserDetails userDetails) {
-            model.addAttribute("ten", userDetails.getTen());
-        }
         model.addAttribute("spct", chiTietSPService.findAll());
         return "/pages/home/home";
     }

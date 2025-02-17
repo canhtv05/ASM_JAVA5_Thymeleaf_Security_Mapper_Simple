@@ -33,7 +33,7 @@ public class KhachHangService {
 
     public List<KhachHangResponse> findAll() {
         return khachHangRepository.findAll().stream()
-                .map(khachHangMapper::toKhachHangSResponse)
+                .map(khachHangMapper::toKhachHangResponse)
                 .toList();
     }
 
@@ -42,7 +42,7 @@ public class KhachHangService {
     }
 
     public KhachHangResponse findById(Integer id) {
-        return khachHangMapper.toKhachHangSResponse(khachHangRepository.findById(id).orElse(null));
+        return khachHangMapper.toKhachHangResponse(khachHangRepository.findById(id).orElse(null));
     }
 
     public void deleteById(Integer id) {
