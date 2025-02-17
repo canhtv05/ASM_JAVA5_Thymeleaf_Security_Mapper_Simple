@@ -9,6 +9,7 @@ import com.canhtv05.asm_java5.entity.KhachHang;
 import com.canhtv05.asm_java5.mapper.ChucVuMapper;
 import com.canhtv05.asm_java5.mapper.KhachHangMapper;
 import com.canhtv05.asm_java5.repository.KhachHangRepository;
+import com.canhtv05.asm_java5.repository.NhanVienRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -24,6 +25,7 @@ import java.util.List;
 public class KhachHangService {
 
     KhachHangRepository khachHangRepository;
+    NhanVienRepository nhanVienRepository;
     KhachHangMapper khachHangMapper;
     ChucVuMapper chucVuMapper;
     ChucVuService chucVuService;
@@ -54,6 +56,10 @@ public class KhachHangService {
             throw new DuplicateKeyException("TaiKhoan is already in use");
         }
 
+        if (nhanVienRepository.existsByTaiKhoan(khachHang.getTaiKhoan())) {
+            throw new DuplicateKeyException("TaiKhoan is already in use");
+        }
+
         ChucVu chucVu = chucVuMapper.toChucVu(chucVuService.findByMa(PredefinedRole.CUSTOMER_ROLE));
         khachHang.setChucVu(chucVu);
 
@@ -67,9 +73,12 @@ public class KhachHangService {
         khachHangRepository.save(khachHang);
     }
 
-    public void update(KhachHangUpdateRequest request)  {
+    public void update(KhachHangUpdateRequest request) {
         KhachHang khachHang = khachHangMapper.toKhachHangUpdate(request);
-        khachHang.setMatKhau(passwordEncoder.encode(request.getMatKhau()));
+
+        if (!request.getMatKhau().equals(khachHang.getMatKhau())) {
+            khachHang.setMatKhau(passwordEncoder.encode(request.getMatKhau()));
+        }
 
         khachHangRepository.save(khachHang);
     }

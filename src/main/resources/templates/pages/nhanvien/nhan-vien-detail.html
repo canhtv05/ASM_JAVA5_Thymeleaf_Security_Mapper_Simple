@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        i {
+            color: #FFF;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div th:object="${nhanVien}" class="card w-100 h-100 p-5">
+        <div class="mb-3">
+            <label class="form-label">Mã NV: </label>
+            <span th:text="*{ma}"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Họ và tên: </label>
+            <span th:text="|*{ho} *{tenDem} *{ten}|"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Giới tính: </label>
+            <span th:text="${nhanVien.gioiTinh == 1 ? 'Nam' : 'Nữ'}"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Ngày sinh: </label>
+            <span th:text="*{ngaySinh}"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Số điện thoại: </label>
+            <span th:text="*{sdt}"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Địa chỉ: </label>
+            <span th:text="*{diaChi}"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Trạng thái: </label>
+            <span th:text="${nhanVien.trangThai == 1 ? 'Hoạt động' : 'Ngừng hoạt động'}"></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -28,7 +28,7 @@
     </div>
     <div class="form-container sign-in-container" th:object="${req}">
         <form action="/login" method="post">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             <h1>Sign in</h1>
             <div class="social-container">
                 <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -37,15 +37,15 @@
             </div>
             <span>or use your account</span>
             <input type="text" placeholder="Username" th:field="*{taiKhoan}" name="taiKhoan"/>
-            <div style="width: 100%;">
-                <span style="color: red; text-align: left; display: inline-block; width: 100%;" th:errors="*{taiKhoan}"></span>
-                <span style="color: red; text-align: left; display: inline-block; width: 100%;" th:text="${errUS}"></span>
-            </div>
+            <span style="color: red; text-align: left; display: inline-block; width: 100%;"
+                  th:errors="*{taiKhoan}"></span>
+            <span style="color: red; text-align: left; display: inline-block; width: 100%;" th:text="${errUS}"></span>
+            <span style="color: red; text-align: left; display: inline-block; width: 100%;" th:text="${expired}"></span>
             <input type="password" placeholder="Password" th:field="*{matKhau}" name="matKhau"/>
-            <div style="width: 100%;">
-                <span style="color: red; text-align: left; display: inline-block; width: 100%;" th:errors="*{matKhau}"></span>
-                <span style="color: red; text-align: left; display: inline-block; width: 100%;" th:text="${errPW}"></span>
-            </div>
+            <span style="color: red; text-align: left; display: inline-block; width: 100%;"
+                  th:errors="*{matKhau}"></span>
+            <span style="color: red; text-align: left; display: inline-block; width: 100%;" th:text="${errPW}"></span>
+            <span style="color: red; text-align: left; display: inline-block; width: 100%;" th:text="${expired}"></span>
             <a href="#">Forgot your password?</a>
             <button>Sign In</button>
         </form>

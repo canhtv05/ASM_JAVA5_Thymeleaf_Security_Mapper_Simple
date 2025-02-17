@@ -20,13 +20,14 @@ public class NhanVienResponse {
     String ten;
     String tenDem;
     String ho;
+    String gioiTinh;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate ngaySinh;
-    String sdt;
     String diaChi;
-    String thanhPho;
-    String quocGia;
+    String sdt;
     String taiKhoan;
     String matKhau;
     ChucVu chucVu;
+    Integer trangThai;
+
 }

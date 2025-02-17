@@ -54,6 +54,12 @@ public class AuthenticationController {
 
         NhanVien nhanVien = nhanVienService.findByTaiKhoan(request.getTaiKhoan());
         if (!Objects.isNull(nhanVien) && passwordEncoder.matches(request.getMatKhau(), nhanVien.getMatKhau())) {
+            if (nhanVien.getTrangThai().equals(0)) {
+                model.addAttribute("req", request);
+                model.addAttribute("expired", "Bạn đã nghỉ làm việc, không có quyền.");
+                return "/pages/login/login";
+            }
+
             CustomUserDetails userDetails = new CustomUserDetails(
                     request.getTaiKhoan(),
                     request.getMatKhau(),

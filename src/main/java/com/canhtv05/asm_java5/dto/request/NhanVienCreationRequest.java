@@ -2,6 +2,7 @@ package com.canhtv05.asm_java5.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -17,8 +18,6 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class NhanVienCreationRequest {
 
-    @NotBlank
-    @Size(max = 20)
     String ma;
     @NotBlank
     @Size(max = 30)
@@ -29,10 +28,12 @@ public class NhanVienCreationRequest {
     @NotBlank
     @Size(max = 30)
     String ho;
+    @Builder.Default
     @NotBlank
     @Size(max = 10)
-    String gioiTinh;
+    String gioiTinh = "Nam";
     @NotNull
+    @Past(message = "Ngày sinh không hợp lệ")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate ngaySinh;
     @NotBlank

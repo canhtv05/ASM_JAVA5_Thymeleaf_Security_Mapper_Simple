@@ -15,7 +15,7 @@
 <body>
 <div layout:fragment="content">
     <div class="card p-2">
-        <form class="needs-validation" method="post" action="/admin/khach-hang/add" th:object="${khachHang}"
+        <form class="needs-validation" method="post" action="/admin/nhan-vien/add" th:object="${nhanVien}"
               onsubmit="return showNotification('Thông báo!', 'Bạn có muốn thêm không?', 'info', null, event)">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             <div class="mb-3">
@@ -34,6 +34,18 @@
                 <span class="my-error" th:errors="*{ten}"></span>
             </div>
             <div class="mb-3">
+                <label class="form-label">Giới tính</label>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="1" name="gioiTinh" th:field="*{gioiTinh}" value="Nam" checked>
+                    <label class="form-check-label" for="1">Nam</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="2" name="gioiTinh" th:field="*{gioiTinh}" value="Nữ">
+                    <label class="form-check-label" for="2">Nữ</label>
+                </div>
+                <span class="my-error" th:errors="*{gioiTinh}"></span>
+            </div>
+            <div class="mb-3">
                 <label for="ngaySinh" class="form-label">Ngày sinh</label>
                 <input type="date" class="form-control" name="ngaySinh" id="ngaySinh" th:field="*{ngaySinh}">
                 <span class="my-error" th:errors="*{ngaySinh}"></span>
@@ -47,16 +59,6 @@
                 <label for="diaChi" class="form-label">Địa chỉ</label>
                 <input type="text" class="form-control" name="diaChi" id="diaChi" th:field="*{diaChi}">
                 <span class="my-error" th:errors="*{diaChi}"></span>
-            </div>
-            <div class="mb-3">
-                <label for="thanhPho" class="form-label">Thành phố</label>
-                <input type="text" class="form-control" name="thanhPho" id="thanhPho" th:field="*{thanhPho}">
-                <span class="my-error" th:errors="*{thanhPho}"></span>
-            </div>
-            <div class="mb-3">
-                <label for="quocGia" class="form-label">Quốc gia</label>
-                <input type="text" class="form-control" name="quocGia" id="quocGia" th:field="*{quocGia}">
-                <span class="my-error" th:errors="*{quocGia}"></span>
             </div>
             <div class="mb-3">
                 <label for="taiKhoan" class="form-label">Tài khoản</label>

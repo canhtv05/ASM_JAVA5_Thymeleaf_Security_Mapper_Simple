@@ -16,4 +16,6 @@ public interface NhanVienRepository extends JpaRepository<NhanVien, Integer> {
     Optional<NhanVien> findTopByOrderByIdDesc();
 
     Optional<NhanVien> findByTaiKhoan(String taiKhoan);
+
+    boolean existsByTaiKhoan(String taiKhoan);
 }

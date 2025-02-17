@@ -17,9 +17,9 @@
         <tr class="thead-dark">
             <th>#</th>
             <th>Mã KH</th>
-            <th>Tên</th>
-            <th>Tên đệm</th>
             <th>Họ</th>
+            <th>Tên đệm</th>
+            <th>Tên</th>
             <th>Ngày sinh</th>
             <th>Số điện thoại</th>
             <th>Địa chỉ</th>
@@ -27,15 +27,15 @@
             <th>Quốc gia</th>
             <th>Tài khoản</th>
             <th>Mật khẩu</th>
-            <th>Tài khoản</th>
+            <th>Hành động</th>
         </tr>
 
         <tr th:each="kh, i : ${khachHang}">
             <td th:text="${i.count}"></td>
             <td th:text="${kh.ma}"></td>
-            <td th:text="${kh.ten}"></td>
-            <td th:text="${kh.tenDem}"></td>
             <td th:text="${kh.ho}"></td>
+            <td th:text="${kh.tenDem}"></td>
+            <td th:text="${kh.ten}"></td>
             <td th:text="${kh.ngaySinh}"></td>
             <td th:text="${kh.sdt}"></td>
             <td th:text="${kh.diaChi}"></td>
