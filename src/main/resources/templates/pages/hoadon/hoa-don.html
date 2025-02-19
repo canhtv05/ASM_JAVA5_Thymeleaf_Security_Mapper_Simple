@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        i {
+            color: #FFF;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <table border="1" style="border-collapse: collapse" class="table table-hover">
+        <tr class="thead-dark">
+            <th>#</th>
+            <th>Mã KH</th>
+            <th>Họ</th>
+            <th>Tên đệm</th>
+            <th>Tên</th>
+            <th>Ngày sinh</th>
+            <th>Số điện thoại</th>
+            <th>Địa chỉ</th>
+            <th>Thành phố</th>
+            <th>Quốc gia</th>
+            <th>Tài khoản</th>
+            <th>Mật khẩu</th>
+            <th>Hành động</th>
+        </tr>
+
+        <tr th:each="kh, i : ${khachHang}">
+            <td th:text="${i.count}"></td>
+            <td th:text="${kh.ma}"></td>
+            <td th:text="${kh.ho}"></td>
+            <td th:text="${kh.tenDem}"></td>
+            <td th:text="${kh.ten}"></td>
+            <td th:text="${kh.ngaySinh}"></td>
+            <td th:text="${kh.sdt}"></td>
+            <td th:text="${kh.diaChi}"></td>
+            <td th:text="${kh.thanhPho}"></td>
+            <td th:text="${kh.quocGia}"></td>
+            <td th:text="${kh.taiKhoan}"></td>
+            <td th:text="${kh.matKhau}"></td>
+            <td>
+                <div class="d-flex justify-content-around">
+                    <a type="button" class="btn btn-info w-100 m-2" th:href="@{/admin/khach-hang/detail/{id}(id=${kh.id})}">
+                        <i class="fa-solid fa-eye"></i>
+                    </a>
+                    <a type="button" class="btn btn-primary w-100 m-2"  th:href="@{/admin/khach-hang/view-update/{id}(id=${kh.id})}">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
+                    <a type="button" class="btn btn-warning w-100 m-2"
+                       th:attr="onclick=|showNotification('Thông báo!', 'Bạn có chắc chắn muốn xóa?', 'warning', '/admin/khach-hang/delete/' + ${kh.id})|">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <a type="button" class="btn btn-success w-100 mb-3" href="/admin/khach-hang/view-add">
+        <i class="fa-solid fa-plus"></i>
+    </a>
+</div>
+</body>
+</html>
