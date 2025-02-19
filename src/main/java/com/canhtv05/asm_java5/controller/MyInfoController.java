@@ -30,9 +30,7 @@ public class MyInfoController {
 
     @GetMapping("/my-info")
     public String myInfo(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        CustomUserDetails customUserDetails = (CustomUserDetails) auth.getPrincipal();
-        String username = customUserDetails.getUsername();
+        String username = getUsername();
 
         NhanVien nhanVien = nhanVienService.findByTaiKhoan(username);
         if (nhanVien != null) {
@@ -47,5 +45,29 @@ public class MyInfoController {
         }
 
         throw new NullPointerException("NOT FOUND USER");
+    }
+
+    @GetMapping("/change-password")
+    public String changePassword(Model model) {
+        String username = getUsername();
+        NhanVien nhanVien = nhanVienService.findByTaiKhoan(username);
+        if (nhanVien != null) {
+            model.addAttribute("nv", nhanVienMapper.toNhanVienResponse(nhanVien));
+            return "pages/myinfo/change-password";
+        }
+
+        KhachHang khachHang = khachHangService.findByTaiKhoan(username);
+        if (khachHang != null) {
+            model.addAttribute("kh", khachHangMapper.toKhachHangResponse(khachHang));
+            return "pages/myinfo/change-password";
+        }
+
+        throw new NullPointerException("NOT FOUND USER");
+    }
+
+    private String getUsername() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUserDetails = (CustomUserDetails) auth.getPrincipal();
+        return customUserDetails.getUsername();
     }
 }

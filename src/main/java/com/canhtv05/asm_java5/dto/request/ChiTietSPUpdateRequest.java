@@ -21,7 +21,6 @@ public class ChiTietSPUpdateRequest {
 
     @NotNull
     Integer id;
-    @Size(max = 50)
     @NotNull
     Integer namBH;
     @NotBlank

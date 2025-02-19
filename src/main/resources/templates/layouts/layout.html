@@ -95,6 +95,24 @@
                     <li class="list-group-item">
                         <a href="/admin/nhan-vien">Nhân viên</a>
                     </li>
+                    <li class="list-group-item">
+                        <a href="/admin/hoa-don">Hóa đơn</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <aside sec:authorize="hasRole('CUSTOMER')">
+            <div class="card bg-dark" style="width: 18rem;">
+                <div class="card-header text-light">
+                    Menu
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a href="/customer/gio-hang">Giỏ hàng</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="/customer/don-mua">Đơn mua</a>
+                    </li>
                 </ul>
             </div>
         </aside>
@@ -120,5 +138,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.16.0/dist/sweetalert2.all.min.js"></script>
 <script src="/js/showNotification.js"></script>
 <script src="/js/changeText.js"></script>
+<script src="/js/themVaoHoaDon.js"></script>
 </body>
 </html>

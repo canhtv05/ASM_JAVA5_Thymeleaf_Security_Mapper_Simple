@@ -13,44 +13,36 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <div th:object="${khachHang}" class="card w-100 h-100 p-5">
-        <div class="mb-3">
-            <label class="form-label">Mã KH: </label>
-            <span th:text="*{ma}"></span>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Họ và tên: </label>
-            <span th:text="|*{ho} *{tenDem} *{ten}|"></span>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Ngày sinh: </label>
-            <span th:text="*{ngaySinh}"></span>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Số điện thoại: </label>
-            <span th:text="*{sdt}"></span>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Địa chỉ: </label>
-            <span th:text="*{diaChi}"></span>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Thành phố: </label>
-            <span th:text="*{thanhPho}"></span>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Quốc gia: </label>
-            <span th:text="*{quocGia}"></span>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Tài khoản: </label>
-            <span th:text="*{taiKhoan}"></span>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Mật khẩu: </label>
-            <span th:text="*{matKhau}"></span>
-        </div>
-    </div>
+    <table border="1" style="border-collapse: collapse" class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Mã hóa đơn</th>
+            <th>Nhân viên</th>
+            <th>Khách hàng</th>
+            <th>Ngày tạo</th>
+            <th>Sản phẩm</th>
+            <th>Số lượng</th>
+            <th>Giá bán</th>
+            <th>Thành tiền</th>
+            <th>Trạng thái</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="hdct, i : ${hoaDonChiTiet}">
+            <td th:text="${i.count}"></td>
+            <td th:text="${hdct.hoaDon.ma}"></td>
+            <td th:text="${hdct.hoaDon.nhanVien.ten}"></td>
+            <td th:text="${hdct.hoaDon.khachHang.ten}"></td>
+            <td th:text="${hdct.hoaDon.ngayTao}"></td>
+            <td th:text="${hdct.chiTietSP.sanPham.ten}"></td>
+            <td th:text="${hdct.soLuong}"></td>
+            <td th:text="${hdct.donGia}"></td>
+            <td th:text="${hdct.donGia * hdct.soLuong}"></td>
+            <td th:text="${hdct.hoaDon.tinhTrang == 1 ? 'Đã thanh toán' : 'Chưa thanh toán'}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

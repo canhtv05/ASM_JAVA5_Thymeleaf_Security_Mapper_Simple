@@ -3,13 +3,17 @@ package com.canhtv05.asm_java5.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Embeddable

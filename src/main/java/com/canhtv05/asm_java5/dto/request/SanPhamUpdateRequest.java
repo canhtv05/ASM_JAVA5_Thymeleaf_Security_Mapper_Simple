@@ -14,6 +14,8 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SanPhamUpdateRequest {
 
+    @NotNull
+    Integer id;
     @Size(max = 20)
     @NotBlank
     String ma;

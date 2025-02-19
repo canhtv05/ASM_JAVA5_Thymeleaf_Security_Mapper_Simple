@@ -21,9 +21,6 @@ public class GioHang {
     @Column(name = "Id", nullable = false)
     private Integer id;
 
-    @Column(name = "IdNV")
-    private Integer idNV;
-
     @Size(max = 20)
     @Column(name = "Ma", length = 20)
     private String ma;

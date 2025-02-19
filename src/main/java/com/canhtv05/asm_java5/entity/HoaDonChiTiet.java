@@ -1,9 +1,6 @@
 package com.canhtv05.asm_java5.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -19,6 +16,16 @@ import java.math.BigDecimal;
 public class HoaDonChiTiet {
     @EmbeddedId
     private HoaDonChiTietId id;
+
+    @ManyToOne
+    @MapsId("idHoaDon")
+    @JoinColumn(name = "IdHoaDon")
+    private HoaDon hoaDon;
+
+    @ManyToOne
+    @MapsId("idChiTietSP")
+    @JoinColumn(name = "IdChiTietSP")
+    private ChiTietSP chiTietSP;
 
     @Column(name = "SoLuong")
     private Integer soLuong;
